@@ -1,0 +1,1717 @@
+{
+  "tasks": [
+    {
+      "task_id": "P01",
+      "scenario_id": "pilot_complete_revocation",
+      "family": "complete_revocation",
+      "description": "Agent A's only Gmail read grant has been revoked; there are no descendants, queued effects, or unresolved external states.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "agent_a_read_after_revoke",
+        "text": "After Agent A's Gmail read grant was revoked, can Agent A initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-a",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "YES"
+        ],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "NO",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P02",
+      "scenario_id": "pilot_residual_delegation",
+      "family": "residual",
+      "description": "Agent A's Gmail read grant has been revoked after Agent A delegated read access to Agent B.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-b",
+            "type": "agent",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-b-read",
+            "from_id": "agent-a",
+            "to_id": "agent-b",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "agent_b_read_after_a_revoke",
+        "text": "After Agent A's Gmail read grant was revoked, can Agent B initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-b",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access is not fully stopped.",
+            "remaining_capabilities": [
+              "Agent B can still read Gmail despite upstream access being revoked."
+            ],
+            "pending_consequences": [],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P03",
+      "scenario_id": "pilot_queued_send_after_revoke",
+      "family": "pending_effect",
+      "description": "An email-send effect was queued from Agent A's Gmail send grant before that grant was revoked.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [
+          {
+            "id": "e-queued-email",
+            "principal_id": "agent-a",
+            "action": "email.send",
+            "status": "queued",
+            "required_scope": "gmail.send",
+            "authority_source_id": "g-human-a-send"
+          }
+        ],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "queued_email_may_complete",
+        "text": "After Agent A's Gmail send grant was revoked, could an email already queued by Agent A still be sent?",
+        "query_type": "pending_scope",
+        "principal_id": "agent-a",
+        "scope": "gmail.send"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Sending\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A can no longer send email through Gmail.",
+          "consequence_view_summary": {
+            "headline": "New Gmail actions are blocked, but an earlier action may still complete.",
+            "remaining_capabilities": [],
+            "pending_consequences": [
+              "One previously queued email may still be sent."
+            ],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P04",
+      "scenario_id": "pilot_unknown_external_delegate",
+      "family": "unknown_external",
+      "description": "Agent A's Gmail read grant was revoked after an external agent received a delegation; the external agent's final status is unknown.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-c",
+            "type": "external",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-c-read",
+            "from_id": "agent-a",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [
+          {
+            "principal_id": "agent-c",
+            "status": "unknown"
+          }
+        ],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "external_c_read_unknown",
+        "text": "After Agent A's Gmail read grant was revoked, can External Agent C initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-c",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "CANNOT TELL",
+      "relevant_consequence_remains": "CANNOT TELL",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "We cannot verify that all Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [
+              "External Agent C's Gmail access cannot currently be verified."
+            ]
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "CANNOT TELL"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P05",
+      "scenario_id": "pilot_mixed_residual_and_pending",
+      "family": "mixed_residual_pending",
+      "description": "Agent A's Gmail send grant was revoked after it delegated send to Agent B and queued an email.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-b",
+            "type": "agent",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-b-send",
+            "from_id": "agent-a",
+            "to_id": "agent-b",
+            "scope": "gmail.send",
+            "active": true
+          }
+        ],
+        "external_states": [],
+        "effects": [
+          {
+            "id": "e-mixed-queued-email",
+            "principal_id": "agent-a",
+            "action": "email.send",
+            "status": "queued",
+            "required_scope": "gmail.send",
+            "authority_source_id": "g-human-a-send"
+          }
+        ],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "any_agent_can_still_send",
+        "text": "After Agent A's Gmail send grant was revoked, can any agent still initiate a new Gmail send?",
+        "query_type": "any_principal_scope",
+        "scope": "gmail.send"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Sending\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A can no longer send email through Gmail.",
+          "consequence_view_summary": {
+            "headline": "Gmail access is not fully stopped.",
+            "remaining_capabilities": [
+              "Agent B can still send email through Gmail despite upstream access being revoked."
+            ],
+            "pending_consequences": [
+              "One previously queued email may still be sent."
+            ],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P06",
+      "scenario_id": "pilot_read_survives_send_revoke",
+      "family": "send_authority",
+      "description": "Agent A's Gmail send grant was revoked while a separate direct Gmail read grant remains active.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          },
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "agent_a_read_after_send_revoke",
+        "text": "After Agent A's Gmail send grant was revoked, can Agent A still initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-a",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nON"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "REMAINING — Agent A still has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access is not fully stopped.",
+            "remaining_capabilities": [
+              "Agent A can currently read Gmail."
+            ],
+            "pending_consequences": [],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "YES",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P07",
+      "scenario_id": "pilot_multihop_residual",
+      "family": "multi_hop_residual",
+      "description": "A Human-to-Agent-A-to-Agent-B-to-Agent-C read chain was issued before Agent A's root grant was revoked.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-b",
+            "type": "agent",
+            "parent_id": "agent-a"
+          },
+          {
+            "id": "agent-c",
+            "type": "agent",
+            "parent_id": "agent-b"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-b-read",
+            "from_id": "agent-a",
+            "to_id": "agent-b",
+            "scope": "gmail.read",
+            "active": true
+          },
+          {
+            "id": "d-b-c-read",
+            "from_id": "agent-b",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "agent_c_read_after_root_revoke",
+        "text": "After Agent A's Gmail read grant was revoked, can Agent C initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-c",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access is not fully stopped.",
+            "remaining_capabilities": [
+              "Agent B can still read Gmail despite upstream access being revoked.",
+              "Agent C can still read Gmail despite upstream access being revoked."
+            ],
+            "pending_consequences": [],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P08",
+      "scenario_id": "pilot_confirmed_revoked_external",
+      "family": "confirmed_revoked_external",
+      "description": "Agent A's root grant is revoked and its external delegate has confirmed revoked status; no downstream delegation remains.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-c",
+            "type": "external",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-c-read",
+            "from_id": "agent-a",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [
+          {
+            "principal_id": "agent-c",
+            "status": "confirmed_revoked"
+          }
+        ],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "external_c_read_confirmed_revoked",
+        "text": "Can External Agent C initiate a new Gmail read now?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-c",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "YES"
+        ],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P09",
+      "scenario_id": "pilot_cancelled_effect",
+      "family": "no_pending_effect",
+      "description": "Agent A's send grant was revoked and the previously queued email-send effect was explicitly cancelled.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [
+          {
+            "id": "e-cancelled-email",
+            "principal_id": "agent-a",
+            "action": "email.send",
+            "status": "cancelled",
+            "required_scope": "gmail.send",
+            "authority_source_id": "g-human-a-send"
+          }
+        ],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "cancelled_email_may_complete",
+        "text": "Could an email queued before Agent A's Gmail send grant was revoked still be sent?",
+        "query_type": "pending_scope",
+        "principal_id": "agent-a",
+        "scope": "gmail.send"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "YES"
+        ],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Sending\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A can no longer send email through Gmail.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "P10",
+      "scenario_id": "pilot_unknown_external_middle",
+      "family": "unknown_external",
+      "description": "A read delegation passed from Agent A through External Agent C to Agent D; Agent A's root grant was revoked and C's final status is unknown.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-c",
+            "type": "external",
+            "parent_id": "agent-a"
+          },
+          {
+            "id": "agent-d",
+            "type": "agent",
+            "parent_id": "agent-c"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-c-read",
+            "from_id": "agent-a",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          },
+          {
+            "id": "d-c-d-read",
+            "from_id": "agent-c",
+            "to_id": "agent-d",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [
+          {
+            "principal_id": "agent-c",
+            "status": "unknown"
+          }
+        ],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "agent_d_read_through_unknown_external",
+        "text": "After Agent A's Gmail read grant was revoked, can Agent D initiate a new Gmail read?",
+        "query_type": "specific_principal_scope",
+        "principal_id": "agent-d",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "CANNOT TELL",
+      "relevant_consequence_remains": "CANNOT TELL",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "For this direct yes/no factual item, NO overstates absence when a consequence is present or unresolved; YES is a false alarm only when the engine establishes no relevant consequence. CANNOT TELL is never false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "We cannot verify that all Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [
+              "External Agent C's Gmail access cannot currently be verified.",
+              "Agent D's Gmail access cannot currently be verified (path: Human → Agent A → External Agent C → Agent D)."
+            ]
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "CANNOT TELL"
+      },
+      "question_type": "DIRECT_RETRIEVAL"
+    },
+    {
+      "task_id": "T01",
+      "scenario_id": "pilot_transfer_multihop_closed",
+      "family": "transfer_multihop_closed",
+      "description": "A Human-to-Agent-A-to-Agent-B-to-Agent-C Gmail-read chain was issued; Agent A and both delegated links are explicitly revoked.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-b",
+            "type": "agent",
+            "parent_id": "agent-a"
+          },
+          {
+            "id": "agent-c",
+            "type": "agent",
+            "parent_id": "agent-b"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-b-read",
+            "from_id": "agent-a",
+            "to_id": "agent-b",
+            "scope": "gmail.read",
+            "active": true
+          },
+          {
+            "id": "d-b-c-read",
+            "from_id": "agent-b",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": [
+          "d-a-b-read",
+          "d-b-c-read"
+        ]
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "guarantee_no_reader_closed",
+        "text": "Given the multi-agent chain, can the system guarantee that no modeled agent will read a new Gmail message?",
+        "query_type": "guarantee_no_scope",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "NO"
+        ],
+        "note": "NO claims the system cannot rule out a reader although all modeled links are revoked."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "multihop_message_readability"
+    },
+    {
+      "task_id": "T02",
+      "scenario_id": "pilot_transfer_multihop_residual",
+      "family": "transfer_multihop_residual",
+      "description": "Agent A delegated Gmail read access through Agent B to Agent C; Agent A is revoked while both issued links remain active.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-b",
+            "type": "agent",
+            "parent_id": "agent-a"
+          },
+          {
+            "id": "agent-c",
+            "type": "agent",
+            "parent_id": "agent-b"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-b-read",
+            "from_id": "agent-a",
+            "to_id": "agent-b",
+            "scope": "gmail.read",
+            "active": true
+          },
+          {
+            "id": "d-b-c-read",
+            "from_id": "agent-b",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "guarantee_no_reader_residual",
+        "text": "Given the multi-agent chain, can the system guarantee that no modeled agent will read a new Gmail message?",
+        "query_type": "guarantee_no_scope",
+        "scope": "gmail.read"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "YES"
+        ],
+        "false_alarm_if": [],
+        "note": "YES claims system-wide closure despite a confirmed residual reader in the chain."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access is not fully stopped.",
+            "remaining_capabilities": [
+              "Agent B can still read Gmail despite upstream access being revoked.",
+              "Agent C can still read Gmail despite upstream access being revoked."
+            ],
+            "pending_consequences": [],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "multihop_message_readability",
+      "avoid_cooccurrence_with": [
+        "P07"
+      ]
+    },
+    {
+      "task_id": "T03",
+      "scenario_id": "pilot_transfer_queued_send_control_needed",
+      "family": "transfer_pending_closure_action",
+      "description": "Agent A is revoked, but one email-send effect queued before revocation remains queued; cancelling that effect would be an additional control action.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [
+          {
+            "id": "e-queued-email",
+            "principal_id": "agent-a",
+            "action": "email.send",
+            "status": "queued",
+            "required_scope": "gmail.send",
+            "authority_source_id": "g-human-a-send"
+          }
+        ],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "send_control_action_needed_queued",
+        "text": "To ensure that no email is sent from Gmail now, is another control action needed?",
+        "query_type": "send_closure_action_needed",
+        "scope": "gmail.send"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "YES",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "NO"
+        ],
+        "false_alarm_if": [],
+        "note": "NO claims no additional action is needed despite a queued email that may still be sent; CANNOT TELL is not false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Sending\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A can no longer send email through Gmail.",
+          "consequence_view_summary": {
+            "headline": "New Gmail actions are blocked, but an earlier action may still complete.",
+            "remaining_capabilities": [],
+            "pending_consequences": [
+              "One previously queued email may still be sent."
+            ],
+            "unknown_risks": []
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "queued_send_sufficiency",
+      "avoid_cooccurrence_with": [
+        "P03"
+      ]
+    },
+    {
+      "task_id": "T04",
+      "scenario_id": "pilot_transfer_cancelled_send_control_needed",
+      "family": "transfer_cancelled_closure_action",
+      "description": "Agent A is revoked and the email queued earlier has been explicitly cancelled; the modeled state contains no remaining send authority or queued send.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-send",
+            "principal_id": "agent-a",
+            "scope": "gmail.send",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [],
+        "external_states": [],
+        "effects": [
+          {
+            "id": "e-cancelled-email",
+            "principal_id": "agent-a",
+            "action": "email.send",
+            "status": "cancelled",
+            "required_scope": "gmail.send",
+            "authority_source_id": "g-human-a-send"
+          }
+        ],
+        "revoked_grants": [
+          "g-human-a-send"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "send_control_action_needed_cancelled",
+        "text": "To ensure that no email is sent from Gmail now, is another control action needed?",
+        "query_type": "send_closure_action_needed",
+        "scope": "gmail.send"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "YES"
+        ],
+        "note": "YES claims an additional control action is needed despite no remaining send authority or queued effect."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Sending\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A can no longer send email through Gmail.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "queued_send_sufficiency",
+      "avoid_cooccurrence_with": [
+        "P09"
+      ]
+    },
+    {
+      "task_id": "T05",
+      "scenario_id": "pilot_transfer_external_unknown",
+      "family": "transfer_external_unknown",
+      "description": "External Agent C received a Gmail-read delegation; Agent A is revoked, but C’s external state remains unknown.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-c",
+            "type": "external",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-c-read",
+            "from_id": "agent-a",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [
+          {
+            "principal_id": "agent-c",
+            "status": "unknown"
+          }
+        ],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "guarantee_no_external_reader_unknown",
+        "text": "Is there enough confirmed state to guarantee that no external agent represented in this scenario can read a new Gmail message?",
+        "query_type": "guarantee_no_scope",
+        "scope": "gmail.read",
+        "principal_type": "external"
+      },
+      "expected_answer": "NO",
+      "relevant_consequence_remains": "CANNOT TELL",
+      "false_safe_rule": {
+        "false_safe_if": [
+          "YES"
+        ],
+        "false_alarm_if": [],
+        "note": "YES claims verified external closure while an external principal remains unresolved; CANNOT TELL is not false-safe."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "We cannot verify that all Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [
+              "External Agent C's Gmail access cannot currently be verified."
+            ]
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "NO"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "external_message_readability",
+      "avoid_cooccurrence_with": [
+        "P04"
+      ]
+    },
+    {
+      "task_id": "T06",
+      "scenario_id": "pilot_transfer_external_revoked",
+      "family": "transfer_external_revoked",
+      "description": "External Agent C received the same Gmail-read delegation, but its revocation is confirmed.",
+      "state": {
+        "principals": [
+          {
+            "id": "human",
+            "type": "human"
+          },
+          {
+            "id": "agent-a",
+            "type": "agent",
+            "parent_id": "human"
+          },
+          {
+            "id": "agent-c",
+            "type": "external",
+            "parent_id": "agent-a"
+          }
+        ],
+        "grants": [
+          {
+            "id": "g-human-a-read",
+            "principal_id": "agent-a",
+            "scope": "gmail.read",
+            "source_principal_id": "human",
+            "active": true
+          }
+        ],
+        "delegations": [
+          {
+            "id": "d-a-c-read",
+            "from_id": "agent-a",
+            "to_id": "agent-c",
+            "scope": "gmail.read",
+            "active": true
+          }
+        ],
+        "external_states": [
+          {
+            "principal_id": "agent-c",
+            "status": "confirmed_revoked"
+          }
+        ],
+        "effects": [],
+        "revoked_grants": [
+          "g-human-a-read"
+        ],
+        "revoked_delegations": []
+      },
+      "target_principal": "agent-a",
+      "resource": "Gmail",
+      "requested_action": "revoke",
+      "action_confirmed": true,
+      "question": {
+        "id": "guarantee_no_external_reader_revoked",
+        "text": "Is there enough confirmed state to guarantee that no external agent represented in this scenario can read a new Gmail message?",
+        "query_type": "guarantee_no_scope",
+        "scope": "gmail.read",
+        "principal_type": "external"
+      },
+      "expected_answer": "YES",
+      "relevant_consequence_remains": "NO",
+      "false_safe_rule": {
+        "false_safe_if": [],
+        "false_alarm_if": [
+          "NO"
+        ],
+        "note": "NO denies external closure although the external principal is confirmed revoked and no scoped authority remains."
+      },
+      "stimuli": {
+        "target_local": {
+          "panel_title": "Conventional Permission View",
+          "shown_fields": [
+            "target_principal",
+            "resource_label",
+            "access_status"
+          ],
+          "target_local_text": "Agent A\nGmail Access\nOFF"
+        },
+        "authoritylens": {
+          "panel_title": "AuthorityLens",
+          "shown_fields": [
+            "headline",
+            "local_state",
+            "remaining_capabilities",
+            "pending_consequences",
+            "unknown_risks"
+          ],
+          "target_local_text": "STOPPED — Agent A no longer has Gmail access.",
+          "consequence_view_summary": {
+            "headline": "Gmail access has stopped.",
+            "remaining_capabilities": [],
+            "pending_consequences": [],
+            "unknown_risks": [],
+            "empty_state_message": "No remaining Gmail capabilities, pending actions, or unresolved access."
+          }
+        }
+      },
+      "view_supported_answer_by_condition": {
+        "target_local": "CANNOT TELL",
+        "consequence_oriented": "YES"
+      },
+      "question_type": "TRANSFER_INFERENCE",
+      "matched_pair": "external_message_readability",
+      "avoid_cooccurrence_with": [
+        "P08"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+  <title>Study Session</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='pilot.css') }}">
+  <script defer src="{{ url_for('static', filename='pilot.js') }}"></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <p class="eyebrow">LOCAL RESEARCH PROTOTYPE</p>
+      <h1>Study session</h1>
+      <button id="stop-session" class="quiet-button" type="button" hidden>Stop session</button>
+    </header>
+    <dialog id="stop-dialog" aria-labelledby="stop-dialog-title">
+      <h2 id="stop-dialog-title">Stop this session?</h2>
+      <p>Choose whether to keep submitted answers as an incomplete local session or discard them.</p>
+      <div class="dialog-actions">
+        <button id="keep-partial" class="primary-button" type="button">Stop and keep partial answers</button>
+        <button id="discard-answers" class="quiet-button" type="button">Withdraw and discard answers</button>
+        <button id="continue-session" class="quiet-button" type="button">Continue session</button>
+      </div>
+    </dialog>
+    <div id="screen" aria-live="polite" aria-busy="true">
+      <p class="eyebrow">INFORMATION</p>
+      <h2>Before you continue</h2>
+      <p>This page is an information placeholder for a local research prototype, not approved study consent.</p>
+    </div>
+    <noscript>This session requires JavaScript. No responses can be submitted with JavaScript disabled.</noscript>
+    <footer>Fictional scenarios only. No response is transmitted outside this computer.</footer>
+  </main>
+</body>
+</html>

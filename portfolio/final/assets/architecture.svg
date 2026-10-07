@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="850" viewBox="0 0 1440 850" role="img" aria-labelledby="title desc">
+<title id="title">AuthorityLens architecture and evaluation path</title>
+<desc id="desc">One AuthorityEngine produces EffectiveState. One path creates consequence and control views. A separate ground-truth fact projection from EffectiveState feeds the structured representation benchmark, bypassing ControlView.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#182b3a}.title{font-size:30px;font-weight:700}.subtitle{font-size:16px;fill:#5a6c78}.box-title{font-size:19px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#5a6c78}.label{font-size:13px;font-weight:700;letter-spacing:1px}</style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#587d98"/></marker></defs>
+<rect width="1440" height="850" fill="#f4f7f8"/>
+<text x="70" y="58" class="title">One backend state, two views, an independent fact projection</text>
+<text x="70" y="88" class="subtitle">The benchmark facts are projected separately from shared EffectiveState; they do not come from ControlView.</text>
+<text x="70" y="135" class="label" fill="#24445d">REPRESENTATION PIPELINE</text>
+<text x="860" y="135" class="label" fill="#24445d">BENCHMARK PIPELINE</text>
+<rect x="100" y="165" width="620" height="78" rx="13" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="410" y="198" text-anchor="middle" class="box-title">AuthorityEngine</text>
+<text x="410" y="229" text-anchor="middle" class="small">grants · delegations · effects · external states</text>
+<rect x="100" y="285" width="620" height="78" rx="13" fill="#eaf0f4" stroke="#d5dee4" stroke-width="2"/>
+<text x="410" y="318" text-anchor="middle" class="box-title">EffectiveState</text>
+<text x="410" y="349" text-anchor="middle" class="small">active · residual · pending · unresolved</text>
+<rect x="100" y="405" width="620" height="78" rx="13" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="410" y="438" text-anchor="middle" class="box-title">Consequence Model</text>
+<text x="410" y="469" text-anchor="middle" class="small">deterministic translation of engine state</text>
+<rect x="100" y="525" width="620" height="78" rx="13" fill="#eaf0f4" stroke="#d5dee4" stroke-width="2"/>
+<text x="410" y="558" text-anchor="middle" class="box-title">ControlView</text>
+<text x="410" y="589" text-anchor="middle" class="small">contextual post-control presentation model</text>
+<path d="M410.0 247 L410.0 278" fill="none" stroke="#587d98" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M410.0 367 L410.0 398" fill="none" stroke="#587d98" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M410.0 487 L410.0 518" fill="none" stroke="#587d98" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M410 603 L410 650 L240 650 L240 682" fill="none" stroke="#587d98" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M410 650 L580 650 L580 682" fill="none" stroke="#587d98" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="70" y="690" width="340" height="95" rx="13" fill="#eaf3ee" stroke="#35745d" stroke-width="2"/>
+<text x="240" y="731.5" text-anchor="middle" class="box-title">Conventional Permission View</text>
+<text x="240" y="762.5" text-anchor="middle" class="small">target-local permission state</text>
+<rect x="410" y="690" width="340" height="95" rx="13" fill="#fbf3e6" stroke="#c07a27" stroke-width="2"/>
+<text x="580" y="731.5" text-anchor="middle" class="box-title">AuthorityLens View</text>
+<text x="580" y="762.5" text-anchor="middle" class="small">system-level consequences</text>
+<rect x="850" y="285" width="490" height="95" rx="13" fill="#eaf3ee" stroke="#35745d" stroke-width="2"/>
+<text x="1095" y="326.5" text-anchor="middle" class="box-title">Ground-truth Fact Projection</text>
+<text x="1095" y="357.5" text-anchor="middle" class="small">EffectiveState + scenario context; separate from ControlView</text>
+<rect x="850" y="465" width="490" height="105" rx="13" fill="#ffffff" stroke="#24445d" stroke-width="2"/>
+<text x="1095" y="511.5" text-anchor="middle" class="box-title">Structured Representation Benchmark</text>
+<text x="1095" y="542.5" text-anchor="middle" class="small">compares ground-truth facts with each structured view model</text>
+<path d="M720 324 L790 324 L790 333 L843 333" fill="none" stroke="#35745d" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M1095 387 L1095 457" fill="none" stroke="#35745d" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="1095" y="425" text-anchor="middle" class="small">not derived from ControlView</text>
+<text x="850" y="640" class="small">Separate projection, not an independent semantic oracle. The taxonomy and engine state are shared.</text>
+<text x="850" y="665" class="small">Benchmark result: structured fact mapping only; not rendered-page coverage or human-comprehension evidence.</text>
+</svg>

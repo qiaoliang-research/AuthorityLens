@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">AuthorityLens residual delegation hero</title>
+  <desc id="desc">Before revocation, Agent A has active Gmail read access and has delegated read access to Agent B. After the action Revoke Agent A, the conventional target-local view shows Agent A as OFF. AuthorityLens shows Agent A stopped and Agent B still able to read Gmail under an explicit prototype assumption that issued delegations survive until separately revoked.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#526779"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1120" fill="#f4f6f7"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="68" y="62" font-size="14" font-weight="700" letter-spacing="1.8" fill="#526779">RESEARCH PROTOTYPE</text>
+    <text x="68" y="112" font-size="40" font-weight="700" fill="#172b3a">AuthorityLens</text>
+    <text x="68" y="150" font-size="23" fill="#455a69">After revocation, who can still read Gmail?</text>
+    <text x="68" y="177" font-size="16" fill="#526779">Residual delegation · deterministic synthetic state</text>
+
+    <rect x="68" y="205" width="1464" height="350" rx="12" fill="#ffffff" stroke="#c9d4db" stroke-width="2"/>
+    <text x="100" y="247" font-size="15" font-weight="700" letter-spacing="1.2" fill="#526779">BEFORE REVOKE</text>
+    <text x="100" y="276" font-size="17" fill="#455a69">Agent A has Gmail read access and has already delegated read access to Agent B.</text>
+
+    <!-- Direct path: Human grants Agent A, who can read Gmail. -->
+    <rect x="118" y="305" width="192" height="76" rx="9" fill="#f8fafb" stroke="#9aabb7" stroke-width="2"/>
+    <text x="214" y="351" text-anchor="middle" font-size="20" font-weight="700" fill="#172b3a">Human</text>
+
+    <rect x="500" y="305" width="252" height="76" rx="9" fill="#f8fafb" stroke="#9aabb7" stroke-width="2"/>
+    <text x="522" y="337" font-size="20" font-weight="700" fill="#172b3a">Agent A</text>
+    <rect x="641" y="318" width="91" height="31" rx="6" fill="#e7f2eb" stroke="#8cae99"/>
+    <text x="686.5" y="339" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.8" fill="#245c43">ACTIVE</text>
+    <text x="522" y="365" font-size="14" fill="#526779">gmail.read</text>
+
+    <rect x="1210" y="305" width="252" height="76" rx="9" fill="#f8fafb" stroke="#9aabb7" stroke-width="2"/>
+    <text x="1336" y="351" text-anchor="middle" font-size="20" font-weight="700" fill="#172b3a">Gmail</text>
+    <path d="M310 343 H490" fill="none" stroke="#526779" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="400" y="326" text-anchor="middle" font-size="13" fill="#526779">grant · gmail.read</text>
+    <path d="M752 343 H1200" fill="none" stroke="#526779" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="976" y="326" text-anchor="middle" font-size="13" fill="#526779">direct read access</text>
+
+    <!-- Delegation issued before revoke; Agent B is active at this point. -->
+    <rect x="500" y="424" width="252" height="76" rx="9" fill="#f8fafb" stroke="#9aabb7" stroke-width="2"/>
+    <text x="522" y="456" font-size="20" font-weight="700" fill="#172b3a">Agent A</text>
+    <text x="522" y="484" font-size="14" fill="#526779">delegates gmail.read</text>
+
+    <rect x="850" y="424" width="252" height="76" rx="9" fill="#f8fafb" stroke="#9aabb7" stroke-width="2"/>
+    <text x="872" y="456" font-size="20" font-weight="700" fill="#172b3a">Agent B</text>
+    <rect x="991" y="437" width="91" height="31" rx="6" fill="#e7f2eb" stroke="#8cae99"/>
+    <text x="1036.5" y="458" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.8" fill="#245c43">ACTIVE</text>
+    <text x="872" y="484" font-size="14" fill="#526779">gmail.read</text>
+    <path d="M752 462 H840" fill="none" stroke="#526779" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="796" y="445" text-anchor="middle" font-size="12" fill="#526779">issued</text>
+    <path d="M1102 462 H1164 V404 H1336 V381" fill="none" stroke="#526779" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="1245" y="426" text-anchor="middle" font-size="12" fill="#526779">delegated read access</text>
+
+    <rect x="68" y="580" width="1464" height="82" rx="10" fill="#e8edf0" stroke="#c9d4db" stroke-width="2"/>
+    <text x="100" y="612" font-size="13" font-weight="700" letter-spacing="1.1" fill="#526779">CONTROL ACTION</text>
+    <text x="100" y="641" font-size="17" fill="#455a69">The issued delegation exists before Agent A is revoked.</text>
+    <rect x="1160" y="596" width="336" height="50" rx="8" fill="#24445d"/>
+    <text x="1328" y="628" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">Revoke Agent A</text>
+
+    <text x="68" y="704" font-size="15" font-weight="700" letter-spacing="1.1" fill="#526779">AFTER REVOKE · SAME SCENARIO STATE</text>
+
+    <rect x="68" y="730" width="600" height="302" rx="12" fill="#ffffff" stroke="#c9d4db" stroke-width="2"/>
+    <text x="100" y="777" font-size="13" font-weight="700" letter-spacing="1.1" fill="#526779">CONVENTIONAL PERMISSION VIEW</text>
+    <text x="100" y="814" font-size="15" fill="#526779">TARGET-LOCAL · Agent A</text>
+    <text x="100" y="866" font-size="25" font-weight="700" fill="#172b3a">Gmail Access</text>
+    <rect x="100" y="891" width="106" height="44" rx="7" fill="#e7f2eb" stroke="#8cae99" stroke-width="2"/>
+    <text x="153" y="920" text-anchor="middle" font-size="17" font-weight="700" letter-spacing="1" fill="#245c43">OFF</text>
+    <text x="100" y="978" font-size="15" fill="#526779">Agent A's direct permission is stopped.</text>
+
+    <rect x="696" y="730" width="836" height="302" rx="12" fill="#ffffff" stroke="#bc7926" stroke-width="2"/>
+    <text x="728" y="777" font-size="13" font-weight="700" letter-spacing="1.1" fill="#526779">AUTHORITYLENS · SYSTEM CONSEQUENCES</text>
+    <text x="728" y="818" font-size="25" font-weight="700" fill="#172b3a">Gmail access is not fully stopped.</text>
+
+    <rect x="728" y="846" width="112" height="34" rx="6" fill="#e7f2eb" stroke="#8cae99"/>
+    <text x="784" y="869" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.8" fill="#245c43">STOPPED</text>
+    <text x="858" y="869" font-size="17" fill="#172b3a">Agent A no longer has Gmail access.</text>
+
+    <rect x="728" y="893" width="112" height="34" rx="6" fill="#f7eedc" stroke="#c9a96d"/>
+    <text x="784" y="916" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="0.8" fill="#76500e">REMAINING</text>
+    <text x="858" y="916" font-size="17" font-weight="700" fill="#172b3a">Agent B can still read Gmail.</text>
+    <text x="858" y="941" font-size="14" fill="#76500e">RESIDUAL · issued before the upstream revoke</text>
+
+    <rect x="728" y="960" width="772" height="48" rx="7" fill="#fbf3e6"/>
+    <text x="746" y="981" font-size="13" font-weight="700" fill="#76500e">PROTOTYPE ASSUMPTION</text>
+    <text x="746" y="999" font-size="13" fill="#455a69">An issued delegation remains independently active until explicitly revoked.</text>
+
+    <text x="68" y="1072" font-size="14" fill="#526779">Illustrative synthetic state only · No live Gmail access or external-agent control.</text>
+  </g>
+</svg>

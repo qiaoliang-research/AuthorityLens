@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Participant link prepared</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='pilot.css') }}">
+  <style>
+    main { max-width: 760px; margin: 0 auto; padding: 36px 20px; }
+    .launch-link { display: inline-block; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">RESEARCHER-ONLY · LOCAL MACHINE</p>
+    <h1>Participant launch link</h1>
+    <p>Open this one-time link in a clean participant browser. Opening it consumes the link, sets only the participant session cookie, and redirects to the study page.</p>
+    <p><a class="launch-link" href="{{ launch_url }}">{{ request.host_url.rstrip('/') }}{{ launch_url }}</a></p>
+    <p>The link expires in 10 minutes and cannot be reused. It contains no seed, condition, answer, or scoring metadata.</p>
+    <p><a href="{{ url_for('pilot_researcher_page') }}">Return to researcher controls</a></p>
+  </main>
+</body>
+</html>

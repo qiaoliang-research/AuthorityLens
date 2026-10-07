@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="660" viewBox="0 0 1440 660" role="img" aria-labelledby="title desc">
+<title id="title">Four post-control AuthorityLens scenarios</title>
+<desc id="desc">Four synthetic outcomes: complete revocation, residual delegated authority, a pending queued effect, and unresolved external state. Each card shows a target-local OFF state alongside the system consequence.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#182b3a}.title{font-size:30px;font-weight:700}.subtitle{font-size:16px;fill:#5a6c78}.box-title{font-size:19px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#5a6c78}.label{font-size:13px;font-weight:700;letter-spacing:1px}</style>
+<rect width="1440" height="660" fill="#f4f7f8"/>
+<text x="56" y="62" class="title">Four post-control states</text>
+<text x="56" y="94" class="subtitle">A local OFF indicator can coexist with system-level consequences.</text>
+<rect x="50" y="175" width="320" height="420" rx="14" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="72" y="219" class="label" fill="#5a6c78">COMPLETE</text>
+<rect x="72" y="247" width="276" height="48" rx="9" fill="#35745d"/>
+<text x="210.0" y="278" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#ffffff">COMPLETE</text>
+<text x="74" y="330" class="label" fill="#5a6c78">TARGET-LOCAL BASELINE</text>
+<text x="74" y="359" class="body">Agent A — Gmail OFF</text>
+<text x="74" y="406" class="label" fill="#5a6c78">SYSTEM CONSEQUENCE</text>
+<text x="74" y="435" class="body">No residual access</text>
+<text x="74" y="469" class="body">No pending or unknown state</text>
+<rect x="400" y="175" width="320" height="420" rx="14" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="422" y="219" class="label" fill="#5a6c78">RESIDUAL DELEGATION</text>
+<rect x="422" y="247" width="276" height="48" rx="9" fill="#c07a27"/>
+<text x="560.0" y="278" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#ffffff">RESIDUAL</text>
+<text x="424" y="330" class="label" fill="#5a6c78">TARGET-LOCAL BASELINE</text>
+<text x="424" y="359" class="body">Agent A — Gmail OFF</text>
+<text x="424" y="406" class="label" fill="#5a6c78">SYSTEM CONSEQUENCE</text>
+<text x="424" y="435" class="body">Agent B can still read Gmail</text>
+<rect x="420" y="495" width="280" height="73" rx="8" fill="#fbf3e6"/>
+<text x="432" y="525" class="small">Prototype assumption: issued delegation
+remains independently active.</text>
+<rect x="750" y="175" width="320" height="420" rx="14" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="772" y="219" class="label" fill="#5a6c78">QUEUED ACTION</text>
+<rect x="772" y="247" width="276" height="48" rx="9" fill="#587d98"/>
+<text x="910.0" y="278" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#ffffff">PENDING</text>
+<text x="774" y="330" class="label" fill="#5a6c78">TARGET-LOCAL BASELINE</text>
+<text x="774" y="359" class="body">Agent A — Gmail send OFF</text>
+<text x="774" y="406" class="label" fill="#5a6c78">SYSTEM CONSEQUENCE</text>
+<text x="774" y="435" class="body">One queued email remains</text>
+<text x="774" y="469" class="body">May complete; not new authority</text>
+<rect x="1100" y="175" width="320" height="420" rx="14" fill="#ffffff" stroke="#d5dee4" stroke-width="2"/>
+<text x="1122" y="219" class="label" fill="#5a6c78">EXTERNAL STATE</text>
+<rect x="1122" y="247" width="276" height="48" rx="9" fill="#24445d"/>
+<text x="1260.0" y="278" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#ffffff">UNKNOWN</text>
+<text x="1124" y="330" class="label" fill="#5a6c78">TARGET-LOCAL BASELINE</text>
+<text x="1124" y="359" class="body">Agent A — Gmail OFF</text>
+<text x="1124" y="406" class="label" fill="#5a6c78">SYSTEM CONSEQUENCE</text>
+<text x="1124" y="435" class="body">External Agent C: unverified</text>
+<text x="1124" y="469" class="body">Revocation is unconfirmed</text>
+<text x="56" y="640" class="small">Synthetic scenarios only. Unknown means unverified; pending means previously queued, not new authority.</text>
+</svg>

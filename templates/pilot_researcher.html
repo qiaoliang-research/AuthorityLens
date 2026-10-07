@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local pilot researcher controls</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='pilot.css') }}">
+  <style>
+    main { max-width: 1000px; margin: 0 auto; padding: 36px 20px; }
+    form { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; background: #fff; border: 1px solid #d6dfe4; border-radius: 8px; padding: 18px; }
+    label { display: grid; gap: 6px; }
+    select { min-height: 44px; min-width: 170px; font: inherit; padding: 7px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 24px; background: white; }
+    th, td { text-align: left; border-bottom: 1px solid #d9e0e4; padding: 10px; }
+    code { word-break: break-all; }
+    .note { max-width: 780px; background: #fff; border-left: 4px solid #587587; padding: 14px 17px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">RESEARCHER-ONLY · LOCAL MACHINE</p>
+    <h1>Participant session assignment</h1>
+    <p class="note">This page requires the local researcher secret configured through <code>PILOT_RESEARCHER_SECRET</code>. Assign one slot using the prospectively randomized allocation list; do not let participants choose a slot. Preparing a slot creates a one-time launch link for a clean participant browser. The link reveals no slot or condition and expires after 10 minutes or its first use. Sessions and answers live in memory only until this server stops.</p>
+    <form method="post" action="{{ url_for('start_researcher_session') }}">
+      <label for="seed">Preassigned slot
+        <select id="seed" name="seed" required>
+          {% for seed in range(16) %}<option value="{{ seed }}">Slot {{ "%02d"|format(seed + 1) }}</option>{% endfor %}
+        </select>
+      </label>
+      <button class="primary-button" type="submit">Prepare session</button>
+    </form>
+    <h2>Local sessions</h2>
+    {% if sessions %}
+    <table>
+      <thead><tr><th>Slot</th><th>Condition</th><th>Status</th><th>Answered</th><th>Exports</th></tr></thead>
+      <tbody>
+      {% for item in sessions %}
+        <tr data-session-token="{{ item.token }}">
+          <td>{{ item.seed + 1 }}</td>
+          <td>{{ item.condition }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.response_count }} / 9</td>
+          <td><a href="{{ url_for('export_researcher_session_json', token=item.token) }}">JSON</a> · <a href="{{ url_for('export_researcher_session_csv', token=item.token) }}">CSV</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}<p>No local sessions have been prepared.</p>{% endif %}
+    <p>Export files are generated only when requested by the authenticated researcher. Use the same local researcher secret when downloading exports. No analytics or outside transmission is configured.</p>
+  </main>
+</body>
+</html>

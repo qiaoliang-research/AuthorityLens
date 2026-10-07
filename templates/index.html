@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>AuthorityLens</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <p class="eyebrow">Research prototype</p>
+      <h1>AuthorityLens</h1>
+      <p class="subtitle">Understand what autonomous AI agents can still do.</p>
+      <p class="research-scope-note">This prototype compares a target-local permission indicator with a system-consequence-aware representation.</p>
+    </header>
+
+    <section class="scenario-bar" aria-label="Scenario selection">
+      <label for="scenario-select">Scenario</label>
+      <select id="scenario-select" aria-describedby="scenario-description"></select>
+      <p id="scenario-description" class="scenario-description" aria-live="polite"></p>
+    </section>
+
+    <div id="error-message" class="error-message" role="alert" hidden></div>
+
+    <section class="transition-panel" aria-label="Scenario transitions">
+      <div class="transition-heading">
+        <div>
+          <p class="eyebrow">Scenario explanation</p>
+          <p id="initial-state" class="initial-state"></p>
+        </div>
+        <button id="reset-button" class="secondary-button" type="button">Reset Scenario</button>
+      </div>
+      <div class="transition-columns">
+        <div>
+          <h2>Timeline</h2>
+          <ol id="timeline" class="timeline" aria-live="polite"></ol>
+        </div>
+        <div>
+          <h2>Available actions</h2>
+          <div id="action-buttons" class="action-buttons"></div>
+        </div>
+      </div>
+      <p class="assumption-note" id="assumption-note" hidden></p>
+    </section>
+
+    <section class="chain-panel" aria-label="Authority chain">
+      <div class="panel-heading">
+        <span class="panel-index">PATH</span>
+        <h2>Authority chain</h2>
+      </div>
+      <div id="authority-chain-content" class="chain-content" aria-live="polite"></div>
+    </section>
+
+    <section class="control-display" aria-live="polite">
+      <h2 id="view-mode-heading" class="view-mode-heading">Current State</h2>
+      <div id="current-state-panel" class="current-state-panel" hidden>
+        <ul id="current-state-content" class="current-state-list"></ul>
+      </div>
+
+      <section id="comparison-grid" class="comparison-grid" aria-label="Permission view comparison">
+        <article class="panel baseline-panel">
+          <div class="panel-heading">
+            <span class="panel-index">01</span>
+            <h2>Conventional Permission View</h2>
+          </div>
+          <div id="baseline-content" class="panel-content" aria-label="Target-local permission">
+            <p class="loading">Loading scenario…</p>
+          </div>
+        </article>
+
+        <article class="panel authority-panel">
+          <div class="panel-heading">
+            <span class="panel-index">02</span>
+            <h2>AuthorityLens</h2>
+          </div>
+          <div id="authority-content" class="panel-content">
+            <p class="loading">Loading scenario…</p>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <details class="technical-panel">
+      <summary>View system state</summary>
+      <div id="system-state-content" class="system-state-grid"></div>
+    </details>
+
+    <footer class="page-footer">
+      <p>Illustrative local state only. No live Gmail access or external agent control.</p>
+    </footer>
+  </main>
+</body>
+</html>

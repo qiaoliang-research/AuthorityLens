@@ -1,0 +1,71 @@
+:root {
+  color-scheme: light;
+  --ink: #17232b;
+  --muted: #53636c;
+  --line: #d8e0e4;
+  --paper: #ffffff;
+  --wash: #f3f6f7;
+  --accent: #215c65;
+  --accent-soft: #e7f0f0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); line-height: 1.62; }
+a { color: var(--accent); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 3px solid #b77228; outline-offset: 3px; }
+code { font-size: 0.92em; background: var(--wash); padding: 0.12em 0.3em; border-radius: 3px; }
+
+.site-header { height: 4.5rem; max-width: 1120px; margin: auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.site-header a { text-decoration: none; }
+.wordmark { color: var(--ink); font-size: 1.02rem; font-weight: 750; letter-spacing: -0.02em; }
+.site-header nav, .site-footer nav { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.site-header nav a, .site-footer nav a { color: var(--muted); font-size: 0.88rem; }
+.section-shell { width: min(100% - 3rem, 940px); margin-inline: auto; }
+.hero { padding-top: 4rem; }
+.eyebrow { margin: 0 0 0.7rem; color: var(--accent); font-size: 0.76rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { max-width: 810px; margin-bottom: 0.9rem; font-size: clamp(2.25rem, 5.4vw, 4.25rem); line-height: 1.07; letter-spacing: -0.055em; font-weight: 720; }
+.hero-deck { max-width: 720px; margin-bottom: 1.5rem; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.4rem); }
+.hero-figure, .supporting-figure { margin: 0; }
+.hero-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: var(--wash); }
+figcaption { margin-top: 0.65rem; color: var(--muted); font-size: 0.88rem; }
+.hero-note { margin: 1rem 0 0; padding: 0.8rem 1rem; border-left: 3px solid var(--accent); background: var(--accent-soft); font-size: 0.94rem; }
+section.section-shell { padding-top: 4.7rem; }
+.prose { max-width: 780px; }
+h2 { max-width: 780px; margin-bottom: 0.9rem; font-size: clamp(1.75rem, 3.5vw, 2.55rem); line-height: 1.16; letter-spacing: -0.04em; }
+.prose p, .section-heading > p:not(.eyebrow), .split p { color: #34454e; }
+.positioning, .evidence-boundary { margin-top: 1.3rem; padding: 1rem 1.2rem; border: 1px solid var(--line); background: var(--wash); }
+.section-heading { max-width: 790px; margin-bottom: 1.2rem; }
+.supporting-figure { max-width: 900px; }
+.supporting-figure img { display: block; width: 100%; height: auto; }
+.state-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem 2rem; padding-left: 1.2rem; color: #34454e; }
+.split { display: grid; grid-template-columns: 1.5fr 0.8fr; gap: 2rem; align-items: start; }
+.note-card { padding: 1.2rem; border: 1px solid var(--line); background: var(--wash); }
+.note-card p { margin: 0.6rem 0 0; font-size: 0.94rem; }
+.text-link, .report-link a { font-weight: 680; }
+.report-link { margin-top: 1rem; }
+.evidence-boundary { border-left: 3px solid #8c682c; background: #faf8f2; }
+.contribution { border-top: 1px solid var(--line); }
+.contribution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.contribution-grid h3 { margin-bottom: 0.3rem; color: var(--accent); font-size: 0.94rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.contribution-grid p { color: var(--muted); font-size: 0.94rem; }
+.no-human-result { margin: 0.4rem 0 0; font-weight: 700; }
+.site-footer { margin-top: 4rem; padding-top: 1.4rem; padding-bottom: 2.8rem; border-top: 1px solid var(--line); display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; }
+.site-footer p { color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 700px) {
+  .site-header { height: auto; min-height: 4.5rem; padding-block: 0.8rem; align-items: flex-start; gap: 0.8rem; flex-direction: column; }
+  .site-header nav { gap: 0.5rem 1rem; }
+  .section-shell { width: min(100% - 2rem, 940px); }
+  .hero { padding-top: 2.8rem; }
+  section.section-shell { padding-top: 3.3rem; }
+  .state-list, .split, .contribution-grid { grid-template-columns: 1fr; }
+  .site-footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
